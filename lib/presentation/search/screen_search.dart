@@ -39,9 +39,6 @@ class ScreenSearch extends StatelessWidget {
                   color: Colors.grey),
               style: const TextStyle(color: whiteclr),
               onChanged: (value) {
-                if (value.isEmpty) {
-                  return;
-                }
                 _debouncer.run(() {
                   BlocProvider.of<SearchBloc>(context)
                       .add(SearchMovieEvent(movieName: value));
@@ -51,13 +48,15 @@ class ScreenSearch extends StatelessWidget {
             SbHeight10,
             Expanded(child: BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
-                if (searchController.text.isEmpty) {
-                  return const SearchIdleWidget();
-                } else {
+                if (state is SearchSuccessState) {
                   return const SearchResults();
                 }
+             else {
+                  return const SearchIdleWidget();
+                }
+                
               },
-            ))
+            )),
           ],
         ),
       )),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mynetflix/application/NewandHot/new_and_hot_bloc.dart';
+import 'package:mynetflix/core/DateConverter.dart';
 import 'package:mynetflix/core/colors.dart';
 import 'package:mynetflix/core/constants.dart';
 import 'package:mynetflix/core/url.dart';
@@ -13,9 +14,6 @@ class ScreenNewAndHot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      BlocProvider.of<NewAndHotBloc>(context).add(Upcominginitialevent());
-    });
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -95,32 +93,26 @@ class ComingSoonPage extends StatelessWidget {
                 strokeWidth: 2,
               ),
             );
-          } else if (state.upcomingMovies.isEmpty) {
+          } 
+          else if (state.upcomingMovies.isEmpty) {
             return const Center(child: Text('Coming soon List is empty'));
           } else if (state.upcomingMovies.isNotEmpty) {
             return ListView.builder(
               itemCount: state.upcomingMovies.length,
               itemBuilder: (BuildContext context, int index) {
                 final movie = state.upcomingMovies[index];
+                String date = movie.releaseDate.toString();
+                final dateConvertor = DateConverter(dateString: date);
                 if (movie.id == null) {
                   return const SizedBox();
-                }
-                String month = '';
-                try {
-                  final _date = DateTime.tryParse(movie.releaseDate.toString());
-                  final formattedDate =
-                      DateFormat.yMMMMd('en_US').format(_date!);
-                  month = formattedDate.split(' ').first.substring(0, 3);
-                } catch (_) {
-                  month = '';
                 }
 
                 return Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: ComingSoonContent(
                     id: movie.id.toString(),
-                    month: month,
-                    day: movie.releaseDate!.split('-')[1],
+                    month: dateConvertor.monthInstring(),
+                    day: dateConvertor.convertToString(),
                     posterPath: '$imgBaseUrl${movie.posterPath}',
                     movieName: movie.originalTitle ?? 'No Title',
                     description: movie.overview ?? 'No Description',
@@ -130,7 +122,7 @@ class ComingSoonPage extends StatelessWidget {
             );
           }
         }
-        return SizedBox();
+        return Container(color: Colors.amber,);
       }),
     );
   }

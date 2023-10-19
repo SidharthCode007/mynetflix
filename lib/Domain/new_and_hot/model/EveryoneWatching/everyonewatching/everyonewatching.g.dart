@@ -13,7 +13,7 @@ Everyonewatching _$EveryonewatchingFromJson(Map<String, dynamic> json) =>
       backdropPath: json['backdrop_path'] as String?,
       overview: json['overview'] as String?,
       releaseDate: json['release_date'] as String?,
-      id: json['id'] as String?,
+      id: json['id'] as int?,
     );
 
 Map<String, dynamic> _$EveryonewatchingToJson(Everyonewatching instance) =>

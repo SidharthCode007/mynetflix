@@ -40,13 +40,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: bgcolor,
           fontFamily: GoogleFonts.montserrat().fontFamily,
-          /* textTheme: const TextTheme(
-              bodyText1: TextStyle(color: Colors.white),
-              bodyText2: TextStyle(color: Colors.white)), */
+          textTheme: const TextTheme(
+              displayLarge: TextStyle(color: Colors.white),
+              bodyMedium: TextStyle(color: Colors.white)),
         ),
         home: ScreenMainPage(),
       ),
