@@ -13,7 +13,7 @@ class Everyonewatching {
   String? overview;
   @JsonKey(name: 'release_date')
   String? releaseDate;
-  String? id;
+  int? id;
 
   Everyonewatching(
       {this.posterPath,

@@ -42,7 +42,7 @@ class SearchIdleWidget extends StatelessWidget {
                       separatorBuilder: (context, index) => SbHeight20,
                       itemCount: state.trending.length);
                 }
-                return SizedBox();
+                return Container(color: Colors.amber,);
               },
             ),
           )
