@@ -3,14 +3,13 @@
 A new Flutter project.
 
 ## Getting Started
+Project Name: Netflix Clone with TMDB API
 
-This project is a starting point for a Flutter application.
+Description:
 
-A few resources to get you started if this is your first Flutter project:
+This Flutter project is a Netflix clone that leverages the power of the TMDb (The Movie Database) APIs. It allows users to browse and explore movies and TV shows. Key features include:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    Displaying detailed show information, including title, overview, release date, and more.
+    Seamless state management using the BLoC pattern for a smooth and responsive user experience.
+    API integration with Dio to fetch show data from TMDb's extensive collection.
+    A user-friendly UI that replicates the Netflix user interface, providing an immersive experience.
