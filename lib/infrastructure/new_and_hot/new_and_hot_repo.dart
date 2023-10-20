@@ -38,10 +38,8 @@ class NewAndHotImpl implements NewAndHotService {
         final result = (response.data['results'] as List).map((e){
           return Upcoming.fromJson(e);
         }).toList();
-        print("ADCD :  ${result.toString()}");
         return right(result);
       } else {
-        print('object 1');
         return left(MainFailure.serverFailure()); 
       }
     } catch (e) {
@@ -49,27 +47,3 @@ class NewAndHotImpl implements NewAndHotService {
       return left(MainFailure.clientFailure());
     } 
   }}
-/*       try {
-    final Response response = await Dio(BaseOptions()).get(ApiEndPoints.upcoming);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      if (response.data.containsKey('results')) {
-        final result = (response.data['results'] as List).map((e) {
-          return Upcoming.fromJson(e);
-        }).toList();
-        print("Upcoming Movies: ${result.toString()}");
-        return right(result);
-      } else {
-        // Handle the case when 'results' field is missing in the response
-        print('No "results" field in the response');
-        return left(MainFailure.serverFailure());
-      }
-    } else {
-      print('HTTP Status Code: ${response.statusCode}');
-      return left(MainFailure.serverFailure());
-    }
-  } catch (e) {
-    print('Error: $e');
-    return left(MainFailure.clientFailure());
-  }
-  } */
-

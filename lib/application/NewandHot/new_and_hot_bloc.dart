@@ -19,7 +19,7 @@ class NewAndHotBloc extends Bloc<NewAndHotEvent, NewAndHotState> {
 
   FutureOr<void> upcominginitialevent(
       Upcominginitialevent event, Emitter<NewAndHotState> emit) async {
-    emit(UpcomingSuccessstate(isLoading: true, UpcomingsResponse: None()));
+    emit(UpcomingSuccessstate(isLoading: true, UpcomingsResponse: const None()));
 
     final Either<MainFailure, List<Upcoming>> upcominglist =
         await newAndHotService.getupcomingMovieData();
@@ -34,13 +34,12 @@ class NewAndHotBloc extends Bloc<NewAndHotEvent, NewAndHotState> {
             isLoading: false,
             UpcomingsResponse: some(right(r)),
             upcomingMovies: r);}));
-          print(upcominglist.toString()); 
   }
 
   FutureOr<void> everyonwwatchinginitialevent(
       Everyonwwatchinginitialevent event, Emitter<NewAndHotState> emit) async {
     emit(EveryoneWatchingSuccessstate(
-        isLoading: true, popularsResponse: None()));
+        isLoading: true, popularsResponse: const None()));
 
     final Either<MainFailure, List<Everyonewatching>> watchinglist =
         await newAndHotService.getWatchingMovieData();

@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:mynetflix/Domain/core/failures/main_failure.dart';
 import 'package:mynetflix/Domain/home/Model/home.dart';
 import 'package:mynetflix/Domain/home/h/HomeService.dart';
+import 'package:mynetflix/core/url.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -22,6 +23,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     final _movieResult = await homeService.getHomeMovieData();
     final _tvResult = await homeService.getHomeTvData();
+    print("movie = $_movieResult");
+    print("tv = $_tvResult");
 
     final _state1 = _movieResult.fold(
       (MainFailure failure) {

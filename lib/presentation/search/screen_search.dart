@@ -39,10 +39,17 @@ class ScreenSearch extends StatelessWidget {
                   color: Colors.grey),
               style: const TextStyle(color: whiteclr),
               onChanged: (value) {
-                _debouncer.run(() {
+                if(value.isEmpty){
+                 BlocProvider.of<SearchBloc>(context)
+                      .add(SearchInitialEvent()); 
+                }
+                else{
+                  _debouncer.run(() {
                   BlocProvider.of<SearchBloc>(context)
                       .add(SearchMovieEvent(movieName: value));
                 });
+                }
+                
               },
             ),
             SbHeight10,
@@ -63,3 +70,58 @@ class ScreenSearch extends StatelessWidget {
     );
   }
 }
+  /* Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            CupertinoSearchTextField(
+              controller: searchController,
+              backgroundColor: Colors.grey[800],
+              prefixIcon: const Padding(
+                padding: EdgeInsets.only(top: 4, left: 3, right: 3),
+                child: Icon(
+                  CupertinoIcons.search,
+                  color: Colors.grey,
+                ),
+              ),
+              suffixIcon: const Icon(CupertinoIcons.xmark_circle_fill,
+                  color: Colors.grey),
+              style: const TextStyle(color: whiteclr),
+              onChanged: (value) {
+     /*             if(value.isEmpty){
+                  BlocProvider.of<SearchBloc>(context)
+                      .add(SearchInitialEvent());
+                }  */
+                _debouncer.run(() {
+                  BlocProvider.of<SearchBloc>(context)
+                      .add(SearchMovieEvent(movieName: value));
+                });
+              },
+            ),
+            SbHeight10, 
+             Expanded(
+              child:
+              BlocBuilder<SearchBloc, SearchState>(
+                  builder: (context, state) {
+                    if(searchController.text.isEmpty || state is SearchInitialSuccessState){
+                      return SearchIdleWidget();
+                    }
+                    if (state is SearchSuccessState) {
+                       return SearchResults(); 
+                    }
+                    else{
+                        return Container(color: Colors.blue,);
+                      }
+                  },
+                ),
+            )
+          ],
+        ),
+      )),
+    );
+  }
+}
+ */

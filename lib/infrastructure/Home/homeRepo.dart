@@ -13,14 +13,16 @@ class HomeRepo implements HomeService {
     try {
       final Response response =
           await Dio(BaseOptions()).get(ApiEndPoints.homeMovieUrl);
+          
+        //  print(response.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = MovieResponse.fromJson(response.data);
-
         return Right(result);
       } else {
         return Left(MainFailure.serverFailure());
       }
     } catch (e) {
+      print('error: $e');
       log(e.toString());
       return Left(MainFailure.clientFailure());
     }
@@ -31,14 +33,16 @@ class HomeRepo implements HomeService {
     try {
       final Response response =
           await Dio(BaseOptions()).get(ApiEndPoints.homeTvUrl);
+print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = MovieResponse.fromJson(response.data);
-
+print(result);
         return Right(result);
       } else {
         return Left(MainFailure.serverFailure());
       }
     } catch (e) {
+      print("error : $e");
       log(e.toString());
       return Left(MainFailure.clientFailure());
     }

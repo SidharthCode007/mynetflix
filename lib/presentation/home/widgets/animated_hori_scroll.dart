@@ -4,7 +4,7 @@ import 'package:mynetflix/presentation/Widgets/main_title.dart';
 import 'package:mynetflix/presentation/home/widgets/animated_num_card.dart';
 
 class AnimatedHorizontalScroll extends StatelessWidget {
-  final List<String> postersList;
+  final List<String>? postersList;
   const AnimatedHorizontalScroll({
     Key? key,
     required this.postersList,
@@ -26,10 +26,10 @@ class AnimatedHorizontalScroll extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: List.generate(
-                  postersList.length,
+                  postersList!.length,
                   (index) => AnimatedNumberCard(
                         index: index,
-                        imgurl: postersList[index],
+                        imgurl: postersList![index],
                       )),
             ),
           )
