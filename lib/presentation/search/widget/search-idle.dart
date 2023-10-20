@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mynetflix/Domain/downloads/model/downloads.dart';
 import 'package:mynetflix/application/Search/search_bloc.dart';
 import 'package:mynetflix/core/colors.dart';
 import 'package:mynetflix/core/constants.dart';
@@ -12,6 +13,9 @@ class SearchIdleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) { 
+      BlocProvider.of<SearchBloc>(context).add(SearchInitialEvent());
+    });
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -25,6 +29,13 @@ class SearchIdleWidget extends StatelessWidget {
             child: BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is SearchInitialSuccessState) {
+                  if (state.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return _buildTopSearchList(state.trending);
+                  }
+                }
+                /* if (state is SearchInitialSuccessState) {
                   if (state.isLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state.trending.isEmpty) {
@@ -41,7 +52,7 @@ class SearchIdleWidget extends StatelessWidget {
                       },
                       separatorBuilder: (context, index) => SbHeight20,
                       itemCount: state.trending.length);
-                }
+                } */
                 return Container(color: Colors.amber,);
               },
             ),
@@ -50,7 +61,29 @@ class SearchIdleWidget extends StatelessWidget {
       ),
     );
   }
+    Widget _buildTopSearchList(List<Downloads> trending) {
+    if (trending.isEmpty) {
+      return const Center(child: Text('The List is Empty'));
+    }
+    return ListView.separated(
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        final movie = trending[index];
+        return TopSearch(
+          title: movie.originalTitle ?? 'Name is not available',
+          imageUrl: '$imgBaseUrl${movie.backdropPath}',
+        );
+      },
+      separatorBuilder: (context, index) => SbHeight20,
+      itemCount: trending.length,
+    );
+  }
 }
+
+
+
+
+
 
 class TopSearch extends StatelessWidget {
   final String title;

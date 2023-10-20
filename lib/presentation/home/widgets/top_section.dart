@@ -3,10 +3,11 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:mynetflix/core/colors.dart';
 import 'package:mynetflix/core/constants.dart';
+import 'package:mynetflix/core/url.dart';
 import 'package:mynetflix/presentation/home/screen_home.dart';
 
 class HomeTopSection extends StatelessWidget {
-  final List<String> imgUrls;
+  final List<String>? imgUrls;
   const HomeTopSection({
     Key? key,
     required this.imgUrls,
@@ -18,10 +19,10 @@ class HomeTopSection extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: 600,
+          height: 600, 
           decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(imgUrls[2]))),
+                  fit: BoxFit.cover, image: NetworkImage('$imgBaseUrl${imgUrls![2].toString()}'))),
         ),
         Positioned(
           bottom: 0,

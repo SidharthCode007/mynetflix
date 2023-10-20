@@ -16,7 +16,6 @@ class SearchRepo implements SearchService {
     try {
       final Response response =
           await Dio(BaseOptions()).get('${ApiEndPoints.search}$movieQuery');
-          print(response.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = (response.data['results'] as List)
             .map((e) => Search.fromJson(e))
@@ -26,7 +25,6 @@ class SearchRepo implements SearchService {
         return Left(MainFailure.serverFailure());
       }
     } catch (e) {
-      print('error: $e');
       log(e.toString());
       return Left(MainFailure.clientFailure());
     }
